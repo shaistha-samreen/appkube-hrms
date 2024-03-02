@@ -3,11 +3,7 @@
 // ProfessionalForm.js
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   updateProfessionalDetails,
-//   selectProfessionalDetails,
-//   setDropdownOption,
-// } from "../../../../redux/slices/profDetails";
+
 
 import { Form, Input, Button, Select, Col, Row,DatePicker, Space } from "antd";
 import { useForm } from "antd/lib/form/Form";
@@ -16,7 +12,7 @@ import { useRouter } from "next/navigation";
 import axios from "@/api/axios";
 import { updateProfessionalDetails, selectProfessionalDetails, setDropdownOption,
   setDropdownOptionDesig,setDropdownOptionwork,setDropdownOptionReport,setSelectedDate} from "../../../../redux/slices/profDetails";
-// const { Option } = Select;
+
 const numberRegex = /^[0-9]{5,}$/; // Ensure at least 5 digits
 
 const ProfessionalInfo = ({ tab, setTab }) => {
@@ -49,29 +45,14 @@ const ProfessionalInfo = ({ tab, setTab }) => {
     dispatch(updateProfessionalDetails(professionalDetails))
     console.log(professionalDetails);
     putting(professionalDetails)
-    // Retrieve existing data from local storage
-    // const existingData = JSON.parse(localStorage.getItem('professionalDetails')) || {};
-
-    // Merge existing data with the new data
-    // const newData = [{ ...existingData, ...professionalDetails }];
-
-    // Save the merged data to local storage
-    // localStorage.setItem('professionalDetails', JSON.stringify(newData));
-    // alert("Data stored in local storage");
+    
   };
   const router = useRouter();
   const prof1=["option1","option2","option3"]
   const prof=["option1","option2","option3"]
-  
-   
-
- 
-   
-
-  
  
 
-  const putting = (values) => {
+  const putting = async (values) => {
     let data = {
       // designation_id: values.selectedDesignation,
       designation_id: 4,
@@ -86,14 +67,15 @@ const ProfessionalInfo = ({ tab, setTab }) => {
       emp_id: values.employeeId,
     };
 
-    const response = axios
-      .put("/employee/professionalInfo", data)
-      .then((response) => {
-        console.log("success", response);
-      })
-      .catch((error) => {
+    try{
+      console.log('stored data',data)
+      const response = await axios.put("/employee/professionalInfo", data)
+      console.log("success", response);
+
+    }  
+    catch(error){
         console.log("error", error);
-      });
+      }
   };
 
   
@@ -303,13 +285,13 @@ const ProfessionalInfo = ({ tab, setTab }) => {
           </Space>
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
+          <button
+            onClick={()=>{setTab(tab+1)}}
             htmlType="submit"
-            className="rounded-none w-[418px] ml-80 h-[40px] bg-blue-600"
+            className="rounded-md w-[418px] ml-80 h-[40px] bg-[#1890FF] text-white hover:bg-white hover:text-[#1890FF] border hover:border-[#1890FF]"
           >
             Next
-          </Button>
+          </button>
         </Form.Item>
         {/* <Form.Item>
           <Button

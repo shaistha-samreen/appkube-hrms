@@ -84,7 +84,7 @@ export default function RootLayout({ children }) {
 
   const items = [
     getItem(<Link href={"/hrms"}>Dashboard</Link>, "1", <DashboardOutlined />),
-    getItem(<Link href={"/projects"}>Project</Link>, "2", <FormOutlined />),
+    getItem(<Link href={"/hrms/project"}>Project</Link>, "2", <FormOutlined />),
     getItem(
       <Link href={"/hrms/employees"}>Employees</Link>,
       "3",
@@ -96,7 +96,7 @@ export default function RootLayout({ children }) {
       <UserOutlined />
     ),
     getItem(
-      <Link href={"/compliance"}>Compliance</Link>,
+      <Link href={"/hrms/tracker"}>Tracker</Link>,
       "5",
       <HighlightOutlined />
     ),

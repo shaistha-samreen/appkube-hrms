@@ -6,9 +6,7 @@
   import { Checkbox, DatePicker, Input, Radio, Select } from "antd";
   import { useDispatch, useSelector } from "react-redux";
   import { AddEquipment } from "@/redux/slices/Equipment";
-  // import EquipmentDetails from "@/components/employeesOverview/EquipmentDetails";
-  // import { addFormData } from "@/redux/slices/Equipment";
-  // import EquipmentForm from "./EquipmentForm";
+  
   import axios from "@/api/axios";
   const { TextArea } = Input;
 
@@ -27,17 +25,6 @@
     const dispatch = useDispatch();
     const details = useSelector((state) => state.EquipmentDetails);
     const [provideBy, setProvideBy] = useState("org");
-  
-
-  
-
-  
-
-    
-  
-
-    
-
     const handleProvideByChange = (e) => {
       setOwner(e.target.value)
       setProvideBy(e.target.value);
@@ -127,7 +114,7 @@
               </p>
             </div>
             <div>
-              <Button type="primary" className="bg-blue-600 rounded-none mt-3">
+              <Button type="primary"  className="bg-[#1890FF] text-white hover:text-[#1890FF] hover:bg-white  border hover:border-[#1890FF] rounded-none mt-3 p-2 ">
                 Add Equipment
               </Button>
             </div>
@@ -272,7 +259,7 @@
                   </Button>
                   <Button
                     type="primary"
-                    className="rounded-none bg-blue-600 h-8 w-36 text-base"
+                    className="rounded-md  h-8 w-36 text-base bg-[#1890FF] text-white hover:text-[#1890FF] hover:bg-white  border hover:border-[#1890FF]"
                     onClick={() => {
                         StoreEquipment();
                         setTab(tab + 1)
