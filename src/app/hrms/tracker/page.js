@@ -71,20 +71,21 @@ import axios from "@/api/axios"
   const handleSendReminderClick = () => {
     setShowCheckboxes(true);
   };
-
+  
   const handleCheckboxChange = (record) => {
-    const selectedList = [...selectedEmployeesForReminder];
-    const index = selectedList.findIndex((item) => item.key === record.key);
-
-    if (index !== -1) {
-      selectedList.splice(index, 1);
-    } else {
-      selectedList.push(record);
-    }
-
-    setSelectedEmployeesForReminder(selectedList);
+    setSelectedEmployeesForReminder((prevSelected) => {
+      const index = prevSelected.findIndex((item) => item === record);
+  
+      if (index !== -1) {
+        // If already selected, remove the item
+        return [...prevSelected.slice(0, index), ...prevSelected.slice(index + 1)];
+      } else {
+        // If not selected, add the item
+        return [...prevSelected, record];
+      }
+    });
   };
-
+  
 
   
 const columns = [
@@ -96,11 +97,13 @@ const columns = [
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {showCheckboxes && (
           <input
-            type="checkbox"
-            onChange={() => handleCheckboxChange(record)}
-            checked={selectedEmployeesForReminder.some((item) => item.key === record.key)}
-            style={{ marginRight: '8px' }}
-          />
+          type="checkbox"
+          onChange={() => handleCheckboxChange(record)}
+          checked={selectedEmployeesForReminder.some((item) => item.key === record.key)}
+          style={{ marginRight: '8px' }}
+        />
+        
+        
         )}
         <a onClick={() => handleEmployeeClick(record)}>{text}</a>
       </div>
@@ -336,8 +339,43 @@ return (
   <div className='ml-32 text-xs' onClick={onCloseDrawer}><CloseOutlined/></div>
   <Popup/>
 </div>
+</div>
 
-    </div>
+<div className='border border-gray-200 p-4'>
+  <p className='text-lg font-semibold'>This Employee has not yet been invited to the application</p>
+</div>
+
+<div className='border border-gray-200 p-4'>
+  {selectedEmployee.employee_name} can sign up and complete onboarding after receiving the invite.
+  <div className='mt-4'>
+    <button className='bg-red-500 text-white h-8 w-32'>End Agreement</button>
+  </div>
+</div>
+
+<div>
+
+<div className='flex gap-6 h-20'>
+  <div className=' w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>First Name</h2></div>
+  <div className='w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Last Name</h2></div>
+</div>
+
+<div className='flex gap-6 h-20'>
+  <div className=' w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Date of Birth</h2></div>
+  <div className='w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Gender</h2></div>
+</div>
+
+<div className='flex gap-6 h-20'>
+  <div className=' w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Contact No.</h2></div>
+  <div className='w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Email</h2></div>
+</div>
+
+<div className='flex gap-6 h-20'>
+  <div className=' w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Emergency Contact Number</h2></div>
+  <div className='w-full h-full border-b border-slate-200'><h2 className='font-normal text-base text-slate-300'>Qualification</h2></div>
+</div>
+
+</div>
+
           </>
       )}
     </Drawer>
